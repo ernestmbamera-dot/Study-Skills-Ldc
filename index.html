@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>English for Academic Purposes Quiz — LDC 31101</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #090e14;
+  --surface: #121a24;
+  --surface2: #1b2635;
+  --border: rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.13);
+  --text: #f0f0f0;
+  --muted: #8a9ca8;
+  --accent: #3498db;
+  --accent2: #2980b9;
+  --green: #2ecc71;
+  --red: #e74c3c;
+  --amber: #f1c40f;
+  --pill-bg: rgba(52, 152, 219, 0.12);
+  --pill-border: rgba(52, 152, 219, 0.3);
+  --font-display: 'Syne', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--bg); color: var(--text); font-family: var(--font-body); font-size: 15px; line-height: 1.65; min-height: 100vh; }
+body::before { content: ''; position: fixed; inset: 0; background-image: linear-gradient(rgba(52,152,219,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(52,152,219,0.03) 1px, transparent 1px); background-size: 40px 40px; pointer-events: none; z-index: 0; }
+.wrap { position: relative; z-index: 1; max-width: 760px; margin: 0 auto; padding: 0 20px 80px; }
+.screen { display: none; animation: fadeUp 0.4s ease; }
+.screen.active { display: block; }
+@keyframes fadeUp { from { opacity:0; transform: translateY(16px); } to { opacity:1; transform: translateY(0); } }
+nav { display: flex; align-items: center; justify-content: space-between; padding: 20px 0; margin-bottom: 20px; border-bottom: 1px solid var(--border); }
+.nav-logo { font-family: var(--font-display); font-weight: 800; font-size: 15px; letter-spacing: 0.05em; color: var(--accent); }
+.nav-logo span { color: var(--muted); font-weight: 400; }
+.nav-links { display: flex; gap: 6px; }
+.nav-btn { background: transparent; border: 1px solid var(--border2); color: var(--muted); padding: 6px 14px; border-radius: 40px; font-size: 12px; font-family: var(--font-body); cursor: pointer; transition: all 0.2s; }
+.nav-btn:hover, .nav-btn.active { border-color: var(--accent); color: var(--accent); background: var(--pill-bg); }
+.hero { padding: 50px 0 36px; }
+.hero-tag { display: inline-flex; align-items: center; gap: 8px; background: var(--pill-bg); border: 1px solid var(--pill-border); color: var(--accent); font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; padding: 5px 14px; border-radius: 40px; margin-bottom: 28px; }
+.hero-tag::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+h1 { font-family: var(--font-display); font-size: clamp(34px, 6vw, 56px); font-weight: 800; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 18px; }
+h1 em { font-style: normal; color: var(--accent); }
+.hero-sub { font-size: 15px; color: var(--muted); max-width: 520px; margin-bottom: 32px; line-height: 1.7; }
+.hero-stats { display: flex; gap: 28px; margin-bottom: 36px; }
+.stat-n { font-family: var(--font-display); font-size: 28px; font-weight: 700; color: var(--text); }
+.stat-l { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 2px; }
+.register-card { background: var(--surface); border: 1px solid var(--border2); border-radius: 16px; padding: 32px; margin-bottom: 40px; }
+.register-card h2 { font-family: var(--font-display); font-size: 20px; font-weight: 700; margin-bottom: 6px; }
+.register-card p { font-size: 13px; color: var(--muted); margin-bottom: 24px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; }
+.form-row.full { grid-template-columns: 1fr; }
+label { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 6px; }
+input, select { width: 100%; background: var(--surface2); border: 1px solid var(--border2); border-radius: 8px; color: var(--text); font-family: var(--font-body); font-size: 14px; padding: 10px 14px; outline: none; transition: border-color 0.2s; }
+input:focus, select:focus { border-color: var(--accent); }
+.topic-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+.topic-toggle { background: var(--surface2); border: 1px solid var(--border2); color: var(--muted); padding: 6px 14px; border-radius: 40px; font-size: 12px; cursor: pointer; font-family: var(--font-body); transition: all 0.2s; }
+.topic-toggle.on { background: var(--pill-bg); border-color: var(--pill-border); color: var(--accent); }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-family: var(--font-body); font-size: 14px; font-weight: 700; padding: 11px 22px; border-radius: 40px; cursor: pointer; border: none; transition: all 0.2s; text-decoration: none; color: #fff; background: var(--accent); }
+.btn:hover { background: #5dade2; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(52,152,219,0.3); }
+.btn-ghost { background: transparent; border: 1px solid var(--border2); color: var(--muted); font-weight: 500; }
+.btn-ghost:hover { border-color: var(--border2); color: var(--text); background: var(--surface2); box-shadow: none; }
+.btn-sm { padding: 8px 16px; font-size: 13px; }
+.progress-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.progress-label { font-size: 12px; color: var(--muted); }
+.progress-score { font-family: var(--font-display); font-size: 14px; font-weight: 600; color: var(--accent); }
+.progress-track { height: 3px; background: var(--surface2); border-radius: 3px; margin-bottom: 28px; overflow: hidden; }
+.progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent2), var(--accent)); border-radius: 3px; transition: width 0.5s cubic-bezier(0.4,0,0.2,1); }
+.q-card { background: var(--surface); border: 1px solid var(--border2); border-radius: 16px; padding: 28px 28px 20px; margin-bottom: 16px; }
+.q-section-tag { display: inline-block; font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); background: var(--pill-bg); border: 1px solid var(--pill-border); padding: 3px 10px; border-radius: 40px; margin-bottom: 14px; }
+.q-text { font-family: var(--font-display); font-size: 18px; font-weight: 600; line-height: 1.4; color: var(--text); margin-bottom: 22px; }
+.options { display: grid; gap: 9px; }
+.opt-btn { display: flex; align-items: flex-start; gap: 12px; background: var(--surface2); border: 1px solid var(--border2); border-radius: 10px; padding: 13px 16px; text-align: left; cursor: pointer; width: 100%; font-family: var(--font-body); font-size: 14px; color: var(--text); transition: all 0.2s; line-height: 1.5; }
+.opt-btn:hover:not(:disabled) { border-color: var(--accent); background: rgba(52,152,219,0.06); }
+.opt-btn:disabled { cursor: default; }
+.opt-letter { min-width: 24px; height: 24px; border-radius: 6px; background: var(--border); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; color: var(--muted); font-family: var(--font-display); flex-shrink: 0; margin-top: 1px; }
+.opt-btn.correct { border-color: var(--green); background: rgba(46,204,113,0.08); }
+.opt-btn.correct .opt-letter { background: var(--green); color: #000; }
+.opt-btn.wrong { border-color: var(--red); background: rgba(231,76,60,0.08); }
+.opt-btn.wrong .opt-letter { background: var(--red); color: #fff; }
+.feedback-box { border-radius: 10px; padding: 14px 16px; font-size: 13px; line-height: 1.65; margin-bottom: 14px; display: none; }
+.feedback-box.correct { background: rgba(46,204,113,0.1); border: 1px solid rgba(46,204,113,0.3); color: #2ecc71; }
+.feedback-box.wrong { background: rgba(231,76,60,0.1); border: 1px solid rgba(231,76,60,0.3); color: #e74c3c; }
+.feedback-box strong { display: block; margin-bottom: 4px; font-family: var(--font-display); font-size: 13px; }
+.discussion-section { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 18px; margin-bottom: 16px; display: none; }
+.discussion-section h4 { font-family: var(--font-display); font-size: 13px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 14px; }
+.comments-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 14px; max-height: 260px; overflow-y: auto; }
+.comment { background: var(--surface2); border-radius: 8px; padding: 10px 12px; font-size: 13px; }
+.comment-author { font-weight: 500; color: var(--accent); font-size: 12px; margin-bottom: 3px; }
+.comment-text { color: var(--text); line-height: 1.5; }
+.comment-time { font-size: 10px; color: var(--muted); margin-top: 4px; }
+.comment-input-row { display: flex; gap: 8px; }
+.comment-input-row input { flex: 1; }
+.no-comments { font-size: 12px; color: var(--muted); font-style: italic; }
+.quiz-nav { display: flex; align-items: center; justify-content: space-between; }
+.result-hero { text-align: center; padding: 60px 0 40px; }
+.result-ring { width: 140px; height: 140px; border-radius: 50%; background: conic-gradient(var(--accent) var(--pct, 0%), var(--surface2) 0%); display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; box-shadow: 0 0 40px rgba(52,152,219,0.2); }
+.result-ring-inner { width: 108px; height: 108px; border-radius: 50%; background: var(--bg); display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.result-pct { font-family: var(--font-display); font-size: 32px; font-weight: 800; }
+.result-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+.result-title { font-family: var(--font-display); font-size: 28px; font-weight: 700; margin-bottom: 10px; }
+.result-sub { color: var(--muted); max-width: 480px; margin: 0 auto 32px; font-size: 14px; line-height: 1.65; }
+.result-breakdown { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 36px; }
+.breakdown-card { background: var(--surface); border: 1px solid var(--border2); border-radius: 12px; padding: 18px; text-align: center; }
+.breakdown-n { font-family: var(--font-display); font-size: 28px; font-weight: 700; }
+.breakdown-l { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+.lb-card { background: var(--surface); border: 1px solid var(--border2); border-radius: 16px; overflow: hidden; margin-bottom: 24px; }
+.lb-header { padding: 20px 24px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+.lb-header h3 { font-family: var(--font-display); font-size: 16px; }
+.lb-row { display: flex; align-items: center; gap: 16px; padding: 14px 24px; border-bottom: 1px solid var(--border); transition: background 0.15s; }
+.lb-row:hover { background: var(--surface2); }
+.lb-rank { font-family: var(--font-display); font-size: 14px; font-weight: 700; color: var(--muted); width: 28px; text-align: center; }
+.lb-rank.gold { color: #f1c40f; } .lb-rank.silver { color: #bdc3c7; } .lb-rank.bronze { color: #e67e22; }
+.lb-avatar { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 13px; font-weight: 700; }
+.lb-info { flex: 1; }
+.lb-name { font-size: 14px; font-weight: 500; }
+.lb-meta { font-size: 11px; color: var(--muted); }
+.lb-score-wrap { text-align: right; }
+.lb-score { font-family: var(--font-display); font-size: 18px; font-weight: 700; color: var(--accent); }
+.lb-pct { font-size: 11px; color: var(--muted); }
+.lb-empty { padding: 30px; text-align: center; color: var(--muted); font-size: 13px; }
+.badge-you { background: var(--pill-bg); border: 1px solid var(--pill-border); color: var(--accent); font-size: 10px; padding: 1px 8px; border-radius: 40px; margin-left: 6px; }
+.text-muted { color: var(--muted); }
+@media(max-width: 560px) { .form-row { grid-template-columns: 1fr; } .result-breakdown { grid-template-columns: 1fr 1fr; } h1 { font-size: 32px; } }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <nav>
+    <div class="nav-logo">LDC31101<span>/study-skills</span></div>
+    <div class="nav-links">
+      <button class="nav-btn active" onclick="showScreen('home')">Quiz</button>
+      <button class="nav-btn" onclick="showScreen('leaderboard')">Leaderboard</button>
+    </div>
+  </nav>
+
+  <div id="screen-home" class="screen active">
+    <div class="hero">
+      <div class="hero-tag">LDC 31101 · STUDY SKILLS, NOTE TAKING &amp; ACADEMIC SUCCESS</div>
+      <h1>Master <em>Study Skills</em><br>for College Success</h1>
+      <p class="hero-sub">A large bank of exam-style questions covering the transition to college, timetabling, note taking and the Cornell system, study techniques, SMART goals, procrastination, study groups, learning styles and student health. Questions and answer positions are shuffled every attempt.</p>
+      <div class="hero-stats">
+        <div class="stat"><div class="stat-n" id="stat-q">0</div><div class="stat-l">Questions</div></div>
+        <div class="stat"><div class="stat-n" id="stat-t">0</div><div class="stat-l">Topics</div></div>
+        <div class="stat"><div class="stat-n" id="stat-players">0</div><div class="stat-l">Attempts</div></div>
+      </div>
+    </div>
+
+    <div class="register-card">
+      <h2>Initialize Training</h2>
+      <p>Enter your details to track your progress on the class leaderboard.</p>
+      <div class="form-row">
+        <div>
+          <label>Full name</label>
+          <input type="text" id="inp-name" placeholder="e.g. Ernest Leo">
+        </div>
+        <div>
+          <label>Reg. number</label>
+          <input type="text" id="inp-reg" placeholder="e.g. 2501013**">
+        </div>
+      </div>
+      <div class="form-row full">
+        <div>
+          <label>Number of questions</label>
+          <select id="inp-count">
+            <option value="20">20 questions (quick)</option>
+            <option value="40" selected>40 questions (exam-length)</option>
+            <option value="60">60 questions</option>
+            <option value="all">All available</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row full">
+        <div>
+          <label>Filter Topics</label>
+          <div class="topic-grid" id="topic-grid"></div>
+        </div>
+      </div>
+      <button class="btn" onclick="startQuiz()" style="width:100%">Begin Assessment →</button>
+    </div>
+  </div>
+
+  <div id="screen-quiz" class="screen">
+    <div style="padding-top: 24px;">
+      <div class="progress-header">
+        <span class="progress-label" id="prog-label">Question 1</span>
+        <span class="progress-score" id="prog-score">0 pts</span>
+      </div>
+      <div class="progress-track"><div class="progress-fill" id="prog-fill" style="width:0%"></div></div>
+
+      <div class="q-card">
+        <div class="q-section-tag" id="q-section"></div>
+        <div class="q-text" id="q-text"></div>
+        <div class="options" id="options"></div>
+      </div>
+
+      <div class="feedback-box" id="feedback"></div>
+
+      <div class="discussion-section" id="discussion-section">
+        <h4>💬 Lecture Notes</h4>
+        <div class="comments-list" id="comments-list"></div>
+        <div class="comment-input-row">
+          <input type="text" id="comment-input" placeholder="Add your thought…" maxlength="200" onkeydown="if(event.key==='Enter')postComment()">
+          <button class="btn btn-ghost btn-sm" onclick="postComment()">Post</button>
+        </div>
+      </div>
+
+      <div class="quiz-nav" style="margin-top:20px;">
+        <button class="btn btn-ghost" onclick="showScreen('home')">← Exit</button>
+        <button class="btn" id="next-btn" onclick="nextQ()" style="display:none">Next Question →</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="screen-result" class="screen">
+    <div class="result-hero">
+      <div class="result-ring" id="result-ring">
+        <div class="result-ring-inner">
+          <div class="result-pct" id="result-pct">0%</div>
+          <div class="result-label">score</div>
+        </div>
+      </div>
+      <div class="result-title" id="result-title">Analysis Complete</div>
+      <div class="result-sub" id="result-sub"></div>
+      <div class="result-breakdown">
+        <div class="breakdown-card"><div class="breakdown-n" style="color:var(--green)" id="bd-correct">0</div><div class="breakdown-l">Correct</div></div>
+        <div class="breakdown-card"><div class="breakdown-n" style="color:var(--red)" id="bd-wrong">0</div><div class="breakdown-l">Incorrect</div></div>
+        <div class="breakdown-card"><div class="breakdown-n" style="color:var(--amber)" id="bd-total">0</div><div class="breakdown-l">Total</div></div>
+      </div>
+      <div style="display:flex;gap:10px;justify-content:center">
+        <button class="btn btn-ghost" onclick="restartQuiz()">Retry</button>
+        <button class="btn" onclick="showScreen('leaderboard')">Leaderboard →</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="screen-leaderboard" class="screen">
+    <div style="padding-top: 32px;">
+      <h2 style="font-family:var(--font-display);font-size:26px;font-weight:800;margin-bottom:6px;">Leaderboard</h2>
+      <p class="text-muted" style="font-size:13px;margin-bottom:28px;">LDC 31101 rankings — all attempts on this device.</p>
+      <div class="lb-card">
+        <div class="lb-header">
+          <h3>Top scores</h3>
+          <span class="text-muted" style="font-size:12px" id="lb-count">0 attempts</span>
+        </div>
+        <div id="lb-rows"></div>
+      </div>
+      <div style="text-align:center">
+        <button class="btn btn-ghost" onclick="showScreen('home')">Return to Home</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Q(topic, question, CORRECT answer, [3 wrong answers], explanation)
+// The correct answer is written first here, but positions are shuffled at runtime.
+const QUESTIONS = [];
+function Q(s, q, c, w, exp){ QUESTIONS.push({s, q, opts:[c, ...w], exp}); }
+
+/* ───────────── COURSE ORIENTATION ───────────── */
+Q("Course Orientation","LDC 31101 is best described as a course in:","English for Academic Purposes",["Introductory academic computing","Literature and drama criticism","Laboratory data collection"],"LDC 31101 is English for Academic Purposes I; Topic 1 covers study skills.");
+Q("Course Orientation","Why is a study skills topic placed at the start of an academic English course?","Good study habits underpin all later reading, writing and speaking tasks",["Study skills are examined only in the final year of study","It replaces the need for lectures and tutorials entirely","Writing skills are tested only in the first week"],"Study skills give students the habits needed for every later academic task.");
+Q("Course Orientation","Which of these is a main focus of Topic 1?","Skills for coping with learning at college level",["Rules governing English poetry metre and rhyme schemes","The history and development of the English language","Methods of translating between several local languages"],"Topic 1 helps students cope with the demands of college study.");
+Q("Course Orientation","A student who knows the course outline, lecture times and assessment pattern is best placed to:","plan study time and avoid surprises",["skip lectures with no consequence","avoid reading the prescribed material","guess which topics will be tested"],"Knowing course details lets a student plan.");
+Q("Course Orientation","The main aim of studying at college is to:","develop independent learning and understanding of a field",["memorise as many pages of text as possible before tests","finish the whole syllabus before the other students do","attend every social event and club activity on campus"],"College education aims at understanding and independent learning.");
+Q("Course Orientation","Which behaviour shows an independent learner?","Reading beyond the notes given in class",["Waiting to be told every task by the lecturer","Studying only the night before a test","Depending on friends to summarise lectures"],"Independent learners go beyond what is given.");
+Q("Course Orientation","Course outlines are useful to students mainly because they:","state the objectives, content and assessment of the course",["list approved restaurants and hostels around the campus","replace textbooks and library visits throughout the term","contain the answers to previous examination papers set"],"The outline sets out what the course expects.");
+Q("Course Orientation","Who carries the main responsibility for a college student's learning?","The student",["The class representative","The head of department only","The librarian"],"At college learning is mostly the student's own responsibility.");
+
+/* ───────────── TRANSITION TO COLLEGE ───────────── */
+Q("Transition to College","Compared with secondary school, college study usually demands:","more independence and self-management",["more independence and some daily supervision of work","less reading but many more supervised assignments","fixed seating and regular reminders from lecturers"],"College requires more independence than secondary school.");
+Q("Transition to College","In college, the amount of material covered in a lecture is typically:","larger and faster-paced than in secondary school",["smaller and slower than in secondary school","identical to what is in one textbook page","limited to what the student already knows"],"Pace and volume increase at college.");
+Q("Transition to College","A first-year student finds that no one checks whether notes are complete. This illustrates that college:","expects students to monitor their own work",["has no academic standards that students must meet","does not use any form of assessment for courses","forbids students from taking notes during classes"],"Self-monitoring replaces teacher supervision.");
+Q("Transition to College","Which is a common challenge when moving from secondary school to college?","Managing free time without close supervision",["Having too few subjects to choose from each term","Receiving daily homework reminders from lecturers","Having much shorter holidays than in secondary school"],"Free time management is a typical transition challenge.");
+Q("Transition to College","A student who is homesick and isolated is most likely to benefit from:","joining a study group or student association",["dropping all courses for the whole of the semester","avoiding all contact with classmates and lecturers","sleeping through most of the scheduled lecture hours"],"Social support eases the transition.");
+Q("Transition to College","Which choice best helps a new student adapt to college life?","Seeking help early from lecturers, peers and student services",["Hiding problems until the examinations are near","Comparing your results with friends every single day","Skipping orientation sessions to save study time"],"Early help-seeking supports adjustment.");
+Q("Transition to College","Why should first-year students attend orientation sessions?","They explain campus services, rules and expectations",["They count as a full course credit towards a degree","They replace the registration process for all students","They are meant only for students returning from leave"],"Orientation informs students about services and expectations.");
+Q("Transition to College","'Academic freedom' for a college student is best understood as:","freedom that comes with responsibility for results",["freedom to ignore deadlines without any penalties","permission to submit work whenever you feel ready","a right to pass courses without putting in effort"],"Freedom at college comes with responsibility.");
+Q("Transition to College","Which of the following is NOT typically a feature of college life?","Teachers chasing individual students for homework",["Large lecture classes with many students attending","Heavy reading lists with several textbooks per course","Strict deadlines for the submission of coursework"],"College does not usually involve chasing students.");
+Q("Transition to College","A student says, 'No one told me about the test.' What college habit would have prevented this?","Checking the course outline and notice boards regularly",["Waiting for a friend to remind you about each test","Assuming that scheduled tests will always be postponed","Reading only the first lecture of every course"],"Students are expected to check outlines and notices.");
+
+/* ───────────── TIMETABLING ───────────── */
+Q("Timetabling","A timetable helps a student mainly to:","use time in an organised and balanced way",["attend lectures only on days that suit your mood","reduce the number of courses that are taken","replace the need for revision before tests"],"A timetable organises time.");
+Q("Timetabling","Which activity should a personal study timetable include besides lectures?","Study periods, meals, rest and recreation",["Lecture times and the names of lecturers only","Examination papers and past test questions only","Library closing times and bus schedules only"],"A balanced timetable includes more than lectures.");
+Q("Timetabling","A student first writes down fixed commitments such as lectures and tutorials. These are fixed because they:","happen at set times the student cannot change",["can be moved whenever it is convenient to you","are less important than leisure and free time","are decided each week by your classmates"],"Fixed commitments go in first.");
+Q("Timetabling","After placing fixed commitments, the next step in building a timetable is to:","allocate time for private study and other needs",["allocate time for private study and personal needs","add entertainment slots and leave out study time","copy a friend's timetable exactly as it stands"],"Free slots are then filled with study and other needs.");
+Q("Timetabling","Why should a timetable be reviewed regularly?","Needs and workloads change during the semester",["Timetables expire automatically after a single day","Lecturers require signed copies of timetables weekly","Reviews are meant to replace actual studying time"],"Timetables should be adjusted when circumstances change.");
+Q("Timetabling","A timetable that allows no free time at all is likely to:","lead to fatigue and be abandoned",["improve concentration in every hour","remove the need for sleep","make revision unnecessary"],"Unrealistic schedules fail.");
+Q("Timetabling","Which is a sensible rule when scheduling difficult subjects?","Plan them for times when you are most alert",["Leave them for the last minute before a deadline","Place them late at night right after midnight","Study them only on weekends when you are free"],"Hard tasks suit peak-energy periods.");
+Q("Timetabling","Which of these makes a timetable realistic?","It allows travel, meals and rest between activities",["It assumes that no time is lost on the way anywhere","It packs every hour of the day with study work","It ignores lecture hours and only plans leisure"],"Realistic plans account for everyday needs.");
+Q("Timetabling","Why is it useful to place the timetable where you can see it daily?","It keeps commitments and priorities visible",["It makes lecturers change their class timings often","It guarantees good grades in every course taken","It removes the need for taking notes in lectures"],"Visibility reinforces commitment.");
+Q("Timetabling","A student has a test on Friday and an assignment due Monday. Best time-management step?","Allocate specific slots to each task before the deadlines",["Wait until Thursday night before deciding anything","Skip the test altogether to finish the assignment","Do neither task until the following Sunday evening"],"Plan slots against deadlines.");
+Q("Timetabling","Prioritising tasks means:","doing the most important and urgent ones first",["doing the easiest ones first and leaving the rest","doing tasks in alphabetical order of their names","postponing all of the tasks by the same amount"],"Prioritising orders tasks by importance and urgency.");
+Q("Timetabling","Which is the best use of a two-hour gap between lectures?","A planned study task such as reviewing notes",["Waiting around with no plan until the next class","Sleeping in the lecture hall until the next class","Reading unrelated novels for the rest of the day"],"Gaps are valuable study slots.");
+Q("Timetabling","The timetable template used in this course lists days against:","time slots in which activities are written",["lecturer names and room numbers listed for each","examination marks recorded for every test taken","library book titles and their return dates"],"A timetable grid matches days with time slots.");
+Q("Timetabling","A student plans to study 3 hours for each hour of lecture. With 20 lecture hours a week, the study time required is:","60 hours",["23 hours","40 hours","6.7 hours"],"3 × 20 = 60 hours.");
+Q("Timetabling","If a student studies 2 hours for every lecture hour and has 18 lecture hours a week, total weekly study time is:","36 hours",["20 hours","9 hours","54 hours"],"2 × 18 = 36 hours.");
+Q("Timetabling","A student has 24 lecture hours a week and plans 1.5 hours of study per lecture hour. Total study time?","36 hours",["25.5 hours","16 hours","48 hours"],"1.5 × 24 = 36 hours.");
+Q("Timetabling","There are 168 hours in a week. A student sleeps 8 hours daily. Hours left for all other activities?","112 hours",["160 hours","56 hours","120 hours"],"Sleep = 8 × 7 = 56; 168 − 56 = 112.");
+Q("Timetabling","A student sleeps 7 hours a night, attends 20 lecture hours and studies 40 hours a week. Remaining hours out of 168?","59 hours",["99 hours","79 hours","49 hours"],"Sleep 49; 49 + 20 + 40 = 109; 168 − 109 = 59.");
+
+/* ───────────── NOTE TAKING & NOTE MAKING ───────────── */
+Q("Note Taking & Note Making","Note taking refers to:","recording information while listening or reading",["rewriting notes into a full essay after lectures","memorising the whole lecture word for word at once","printing the lecture slides and filing them away"],"Note taking is capturing information as it is presented.");
+Q("Note Taking & Note Making","Note making differs from note taking in that it:","reorganises and develops notes into a useful form after capture",["is done only during the lecture and never afterwards","involves writing down every word that is spoken","never uses the student's own ideas or examples"],"Note making processes and reshapes the notes.");
+Q("Note Taking & Note Making","Why should students take notes rather than rely only on slides?","Writing notes helps understanding and recall",["Slides given by lecturers are never accurate","Lecturers forbid students from reading the slides","Notes are required for registration each term"],"Active note taking aids understanding and memory.");
+Q("Note Taking & Note Making","Which is good practice while taking notes in a lecture?","Write key points in your own words",["Copy every sentence word for word","Write only the lecturer's jokes","Wait until the end to start writing"],"Own-word key points are efficient and aid understanding.");
+Q("Note Taking & Note Making","Using abbreviations and symbols in notes helps to:","save time while writing",["avoid reading the notes later","make notes unreadable to the writer","replace the need for headings"],"Abbreviations speed up note taking.");
+Q("Note Taking & Note Making","Which is a risk of using personal abbreviations without a key?","You may not understand them later",["They are forbidden by the university","They lengthen the notes","They change the meaning of the lecture"],"Undefined abbreviations may become unreadable.");
+Q("Note Taking & Note Making","Leaving blank spaces in your notes allows you to:","add missing details and later comments",["hide your mistakes from the lecturer and others","reduce the number of pages used in the file","avoid having to review the notes at all later"],"Spaces allow later additions.");
+Q("Note Taking & Note Making","Notes taken in a lecture should be reviewed:","soon after the lecture, while memory is fresh",["only on the day before the final exam","after one year","never; they are only for the record"],"Early review improves retention.");
+Q("Note Taking & Note Making","Which step best comes first when preparing for a lecture?","Reading the topic in advance",["Writing the summary of the lecture","Writing the final exam answers","Sleeping through the first hour"],"Pre-reading prepares you to follow and note key points.");
+Q("Note Taking & Note Making","Headings, numbering and indentation make notes:","easier to scan and revise",["longer to write but less clear","unsuitable for exams","hard for others to copy"],"Structure improves readability.");
+Q("Note Taking & Note Making","Highlighting every line of a page is poor practice because it:","fails to separate key points from the rest",["makes the page look lighter and more colourful","only wastes ink without any other effect","removes the printed text from the page itself"],"Over-highlighting hides what is important.");
+Q("Note Taking & Note Making","Listening for signal words such as 'in conclusion' and 'the most important' helps you to:","identify key points to record",["know when the lecture is cancelled","skip the rest of the lecture","avoid writing notes"],"Signal words point to main ideas.");
+Q("Note Taking & Note Making","Which phrase signals that the lecturer is about to give an example?","'For instance'",["'In summary'","'To conclude'","'Firstly'"],"'For instance' introduces an example.");
+Q("Note Taking & Note Making","Which phrase typically signals a summary or conclusion?","'To sum up'",["'For example'","'In addition'","'On the other hand'"],"'To sum up' introduces a conclusion.");
+Q("Note Taking & Note Making","Which phrase signals a contrast?","'On the other hand'",["'Furthermore'","'For example'","'As a result'"],"'On the other hand' indicates contrast.");
+Q("Note Taking & Note Making","Which phrase signals a cause-and-effect relationship?","'As a result'",["'In contrast'","'For instance'","'Firstly'"],"'As a result' signals an effect.");
+Q("Note Taking & Note Making","When a lecturer repeats a point or writes it on the board, you should:","treat it as likely important and record it",["ignore it because it is probably already known","record it only if the point seems easy to write","wait for the next lecture to see if it is repeated"],"Repetition and board work signal importance.");
+Q("Note Taking & Note Making","Which of these is a note-taking pattern that uses a central idea with branches?","Mind map",["Chronological list","Outline paragraph","Verbatim transcript"],"A mind map places the main idea in the centre with branches.");
+Q("Note Taking & Note Making","The outline method of note taking organises information using:","headings and indented sub-points",["a central picture with arrows only","two parallel columns of marks","only paragraphs without breaks"],"Outlining uses a hierarchy of headings.");
+Q("Note Taking & Note Making","A flow chart is best suited for notes on:","a process with ordered steps",["a series of unrelated words or phrases","a single definition of one key term","the rhyme scheme and metre of a poem"],"Flow charts show sequences.");
+Q("Note Taking & Note Making","Which type of notes works best for comparing two theories?","A table with the theories in columns",["A single long paragraph with all the details","An unstructured list of dates in random order","A drawing of both theories without any labels"],"Tables compare items side by side.");
+Q("Note Taking & Note Making","Which is a good reason to compare your notes with a classmate's?","To fill gaps and correct misunderstandings",["To copy their handwriting style and layout","To avoid having to revise before the test","To gossip about the lecturers and other students"],"Comparing notes fills in missing ideas.");
+Q("Note Taking & Note Making","After a lecture you rewrite notes, add examples and link ideas from your reading. This stage is called:","note making",["note losing","dictation","proofreading"],"Reworking notes into a richer form is note making.");
+Q("Note Taking & Note Making","Which of the following is plagiarism-safe when making notes from a book?","Record the source details with each note",["Copy whole sentences with no reference to the source","Leave out the name of the author in the notes","Paste the text and then present it as your own"],"Recording sources prevents accidental plagiarism.");
+Q("Note Taking & Note Making","Using a different colour or symbol for definitions, examples and questions makes notes:","quicker to navigate during revision",["impossible to photocopy or share with others","longer than the textbook you are summarising","unsuitable for sharing with other students"],"Colour codes help you find types of information.");
+Q("Note Taking & Note Making","If you miss a point during a lecture, the best action is to:","leave a space and ask or check afterwards",["stop writing for the rest of the lecture","invent the missing part","interrupt the whole class repeatedly"],"Leave a gap and fill it later.");
+Q("Note Taking & Note Making","Why is it risky to rely only on photographing the lecture slides?","You may not process or understand the content",["Photos of slides are not allowed in any class","Slides are nearly always wrong or outdated","Photos remove the copyright on the slides"],"Passive copying gives little learning.");
+Q("Note Taking & Note Making","Which is the best handwriting standard for notes?","Legible enough for you to read quickly later",["Beautiful but so slow that you miss key points","Tiny so that no one including you can read it","As fast as possible, regardless of whether it is clear"],"Notes must be readable to the writer.");
+Q("Note Taking & Note Making","A student writes 10 pages of notes in a lecture and 2 pages after condensing them. The reduction is:","80%",["20%","8%","50%"],"(10−2)/10 = 0.8 = 80%.");
+
+/* ───────────── CORNELL SYSTEM ───────────── */
+Q("Cornell System","The Cornell note-taking system divides a page into:","a cue column, a notes column and a summary section",["a heading box, a diagram area and a reference list","three equal columns used only for taking notes","two columns used for writing formulas and examples"],"Cornell pages have cues, notes and a summary.");
+Q("Cornell System","In the Cornell system, the wider right-hand column is used for:","recording notes during the lecture",["writing the final summary of the whole page","drawing the margin and ruling the page boxes","listing the references used for the lecture"],"The wide column holds the main notes.");
+Q("Cornell System","In the Cornell system, the narrow left-hand column is used for:","cues, key words and questions written after the lecture",["the lecturer's sentences copied exactly as spoken","the date and the course code written at the top","signatures of classmates who attended the lecture"],"The cue column holds keywords and questions.");
+Q("Cornell System","The summary section at the bottom of a Cornell page is written:","in your own words after the lecture",["before the lecture starts","by the lecturer","only if there is time during the lecture"],"The summary is a post-lecture consolidation.");
+Q("Cornell System","Writing questions in the cue column helps you to:","test yourself by covering the notes column",["avoid any revision of the lecture material at all","make the notes shorter than they need to be","skip writing the summary at the bottom of the page"],"Cues turn notes into a self-test.");
+Q("Cornell System","The Cornell method was developed to:","help students organise and review lecture notes systematically",["teach students the grammar rules of English","replace lectures with recorded video material","grade student essays quickly and consistently"],"The system was designed for efficient note organisation and review.");
+Q("Cornell System","If the cue column takes about 30% of a page's width, the notes column takes roughly:","70%",["30%","60%","80%"],"100 − 30 = 70.");
+Q("Cornell System","A page is 20 cm wide. If the cue column is 6 cm, what percentage of the width is it?","30%",["20%","6%","14%"],"6 / 20 = 0.30 = 30%.");
+Q("Cornell System","A page is 21 cm wide and the cue column is 7 cm. The notes column (ignoring margins) is:","14 cm",["7 cm","28 cm","3 cm"],"21 − 7 = 14 cm.");
+Q("Cornell System","Which stage of the Cornell method comes immediately after taking notes in the notes column?","Writing cues and questions in the left column",["Throwing away the first draft of the page","Writing the date and course at the top of it","Photocopying the notes for the rest of the class"],"After recording notes, you add cues and questions.");
+Q("Cornell System","The step of covering the notes column and answering from the cues is called:","recite",["record","reduce","reflect only"],"Reciting is saying answers aloud from cues.");
+Q("Cornell System","The step in which you ask what the notes mean and how they link to other ideas is:","reflect",["record","rewrite","reproduce"],"Reflecting involves thinking about meaning and links.");
+Q("Cornell System","The Cornell step of reading through the notes regularly to keep them in memory is:","review",["recite","reduce","record"],"Review is repeated revision over time.");
+Q("Cornell System","Which Cornell step involves condensing notes into key words in the cue column?","reduce",["record","review","recite"],"Reduce means compressing notes to cues.");
+Q("Cornell System","Which of these is a strength of the Cornell system?","It builds revision and self-testing into the page layout",["It removes any need for writing notes at all","It works only for mathematics and science courses","It removes the need for a summary at the bottom"],"The layout encourages revision.");
+Q("Cornell System","A student fills the cue column during the lecture and leaves the notes column empty. This is:","incorrect use of the layout",["the correct Cornell order of working on a page","a form of mind mapping used in lectures","an outline method used for writing essays"],"Notes go in the right column; cues are added later.");
+Q("Cornell System","The main point of writing a summary at the bottom of the Cornell page is to:","check that you understand the main ideas of the page",["fill up the empty space left at the bottom","list the name of your lecturer and the room","record the page number and today's date"],"A summary consolidates understanding.");
+Q("Cornell System","Which header details usually appear at the top of a Cornell page?","Course, topic and date",["Phone numbers and room numbers of classmates","Meal plans and menu choices for the week","Hostel numbers and names of room mates"],"Headers identify the course, topic and date.");
+Q("Cornell System","A student must cover the notes and answer 15 cues, getting 12 right. Percentage correct?","80%",["12%","75%","90%"],"12 / 15 = 0.8.");
+
+/* ───────────── STUDY TECHNIQUES ───────────── */
+Q("Study Techniques","Which describes active studying?","Questioning, summarising and testing yourself",["Reading the same page silently without thought","Highlighting without reading","Listening passively to others"],"Active studying engages with the material.");
+Q("Study Techniques","Which technique supports long-term retention better than cramming?","Spaced revision across several days",["One long session carried out the night before","Reading only the headings of each chapter","Studying only the easiest topic on the list"],"Spaced practice improves retention.");
+Q("Study Techniques","Why is cramming ineffective?","Information learned in a rush is soon forgotten",["It uses far too little of the student's energy","It is forbidden by the rules of the college","It increases the hours of sleep needed after"],"Cramming gives poor long-term memory.");
+Q("Study Techniques","The best place to study is one that is:","quiet, comfortable and free of distractions",["noisy and crowded with other people talking","dark and without any desk or chair to use","placed right next to a loud television set"],"A good study space limits distraction.");
+Q("Study Techniques","Which is the best way to deal with a mobile phone while studying?","Silence it and keep it out of reach",["Keep it on loud right beside you as you read","Check your messages every minute or so","Watch short videos between each paragraph"],"Reducing phone interruptions helps concentration.");
+Q("Study Techniques","A good study session usually includes:","short breaks to keep concentration",["no breaks at all for six hours at a stretch","breaks lasting a whole day after each page","continuous reading with no rest at all"],"Breaks help maintain attention.");
+Q("Study Techniques","Which is a sensible length for a focused study block, followed by a break?","About 45 to 60 minutes",["About five to ten minutes at a time","About four to six hours at a stretch","About five to ten seconds at a time"],"Focused blocks of roughly an hour work well for most learners.");
+Q("Study Techniques","A student studies in blocks of 50 minutes with 10-minute breaks. How many full blocks fit into 4 hours (240 min) including breaks?","4",["5","3","6"],"Each cycle is 60 min; 240/60 = 4.");
+Q("Study Techniques","A student studies 3 blocks of 45 minutes each. Total study time?","135 minutes",["90 minutes","120 minutes","145 minutes"],"3 × 45 = 135 minutes.");
+Q("Study Techniques","SQ3R is a reading method. The letter 'S' stands for:","Survey",["Summarise","Sleep","Skip"],"SQ3R = Survey, Question, Read, Recite, Review.");
+Q("Study Techniques","In SQ3R, the step 'Q' means:","Question",["Quote","Quit","Quantify"],"You turn headings into questions.");
+Q("Study Techniques","In SQ3R, the step 'Recite' involves:","answering your questions from memory",["copying the text aloud word for word","skipping ahead to the end of the chapter","underlining the whole of the chapter in colour"],"Reciting means recalling in your own words.");
+Q("Study Techniques","Surveying a chapter before reading means:","previewing headings, summaries and diagrams",["reading every footnote in the chapter first","memorising the whole of the index page","writing answers to all exercises before reading"],"Surveying gives an overview.");
+Q("Study Techniques","Which of these is the best reason to practise past questions?","They show the style and demands of assessment",["They are always repeated word for word in tests","They fully replace the course notes and books","They guarantee full marks in every test"],"Past questions reveal format and expectations.");
+Q("Study Techniques","Explaining a concept aloud to a friend helps you to:","reveal gaps in your understanding",["avoid having to read through the notes again","decide the date and time of the exam","skip revision and leave topics unstudied"],"Teaching exposes weak areas.");
+Q("Study Techniques","Which technique is a memory aid built from the first letters of words?","Acronym",["Footnote","Paragraph","Synonym"],"An acronym uses initial letters to aid recall.");
+Q("Study Techniques","The mnemonic 'SMART' is an example of:","an acronym",["a metaphor","a glossary","a proofreading mark"],"SMART is an acronym.");
+Q("Study Techniques","Which sleep pattern best supports learning?","Regular, adequate sleep each night",["Regular, adequate sleep every night of the week","All-night study sessions before every single test","Sleeping only during the weekends and holidays"],"Sleep consolidates memory.");
+Q("Study Techniques","Which study approach best prepares you for application questions?","Practise solving problems, not just rereading notes",["Rereading the same page about ten times over","Copying out notes neatly for the whole chapter","Copying out notes neatly for the whole chapter"],"Application questions require practice in applying ideas.");
+Q("Study Techniques","A student reads a chapter, then closes the book and writes down what she remembers. This is called:","retrieval practice",["retrieval practice and self-testing","passive reading and rereading","copy typing from the slides"],"Retrieval practice strengthens memory.");
+Q("Study Techniques","Skimming a text is mainly used to:","get the general idea quickly",["get the general idea of a text quickly","find a single particular name or date","check the spelling in the text carefully"],"Skimming gives the gist.");
+Q("Study Techniques","Scanning a text is mainly used to:","locate specific information such as a date or name",["get a general feel for the mood of the text","read slowly for a deep analysis of the argument","check the writer's style"],"Scanning looks for particular details.");
+Q("Study Techniques","You need the year a theory was published. Which reading technique do you use?","Scanning",["Skimming","Intensive reading","Proofreading"],"Scanning finds specific facts.");
+Q("Study Techniques","Which is the best response when you don't understand a concept after studying it?","Ask a lecturer or peer and try a different explanation",["Skip the point and hope that it is not tested","Memorise it word for word without understanding it","Skip it and hope it is not tested"],"Seek clarification early.");
+Q("Study Techniques","Why is a study group or consultation with a lecturer useful before an exam?","It clarifies misunderstandings while there is still time",["It removes any need for the student to revise","It replaces the notes and textbooks completely","It removes the need to revise"],"Clarification before the exam is valuable.");
+
+/* ───────────── GOAL SETTING & SMART ───────────── */
+Q("Goal Setting & SMART","A goal is best described as:","a desired result you commit to achieving",["a desired result that you commit to achieving","a random wish with no plan of how to reach it","an obligation set only by lecturers or others"],"A goal is a desired outcome you work toward.");
+Q("Goal Setting & SMART","Why is setting goals helpful for students?","It gives direction and motivation",["It gives direction and keeps you motivated","It removes the need to study for assessments","It guarantees top marks in every test taken"],"Goals give direction.");
+Q("Goal Setting & SMART","In SMART goals, the letter 'S' stands for:","Specific",["Simple","Social","Silent"],"S = Specific.");
+Q("Goal Setting & SMART","In SMART goals, the letter 'M' stands for:","Measurable",["Memorable","Moderate","Mandatory"],"M = Measurable.");
+Q("Goal Setting & SMART","In SMART goals, the letter 'A' stands for:","Attainable (achievable)",["Annual (yearly)","Aggressive (ambitious)","Aggressive"],"A = Attainable/Achievable.");
+Q("Goal Setting & SMART","In SMART goals, the letter 'R' stands for:","Relevant (realistic)",["Repeated (regular)","Required (compulsory)","Repeated"],"R = Relevant/Realistic.");
+Q("Goal Setting & SMART","In SMART goals, the letter 'T' stands for:","Time-bound",["Total","Targeted","Tough"],"T = Time-bound (timely).");
+Q("Goal Setting & SMART","Which goal is the most SPECIFIC?","'I will read chapters 1 to 3 of the LDC text to prepare for Friday's quiz'",["'I will try to do much better in this course in future'","'I will study a lot at some time before the quiz comes'","'I will study a lot sometime'"],"It states what, how much and for what purpose.");
+Q("Goal Setting & SMART","Which goal is MEASURABLE?","'I will score at least 70% in the next test'",["'I will become a good student by the end of the year'","'I will try my very best to understand everything'","'I will understand everything'"],"A numeric target makes progress measurable.");
+Q("Goal Setting & SMART","Which goal is TIME-BOUND?","'I will finish my assignment by 5 pm on Thursday'",["'I will finish my assignment some time eventually'","'I will finish my assignment when I can find time'","'I will finish my assignment eventually'"],"A deadline makes it time-bound.");
+Q("Goal Setting & SMART","'I will become the best writer in the world next week.' Which SMART element does this MOST clearly violate?","Attainable",["Time-bound","Specific","Relevant only to others"],"The target is unrealistic for one week.");
+Q("Goal Setting & SMART","'I want to improve my English.' Which SMART element is MOST clearly missing?","Measurable",["Relevant","Realistic in the sense of timing","Specific to a person"],"There is no way to tell when it is achieved.");
+Q("Goal Setting & SMART","'I will read two journal articles every week this semester.' Which statement is true?","It is specific, measurable and time-bound",["It is not measurable and has no end date","It has no time frame and gives no amount","It is not measurable"],"It has an amount, a frequency and a duration.");
+Q("Goal Setting & SMART","A first-year student sets a goal to learn 20 new academic words a week. After 5 weeks, how many words will she have learnt if she meets the goal?","100",["25","50","120"],"20 × 5 = 100.");
+Q("Goal Setting & SMART","A student aims to raise a test mark from 55% to 70% over three tests, improving equally each time. By how much must the mark rise each test?","5 percentage points",["15 percentage points","3 percentage points","7 percentage points"],"(70−55)/3 = 5.");
+Q("Goal Setting & SMART","Which pair describes a short-term and a long-term goal?","Finish this week's reading; graduate with a good degree",["Graduate with a good degree; get a degree","Read for this hour; read for this minute","Finish today's lecture; finish the lecture"],"Short-term goals take days or weeks; long-term goals take years.");
+Q("Goal Setting & SMART","Breaking a large goal into smaller steps helps because it:","makes progress visible and the goal manageable",["removes the need for any planning at all","shortens the length of the semester itself","removes the need for planning"],"Small steps make big goals manageable.");
+Q("Goal Setting & SMART","A goal that is 'relevant' means it:","matches your wider aims and values",["matches your wider aims and values in life","is chosen for you by your closest friends","is copied exactly from a classmate's list"],"Relevance links the goal to your priorities.");
+Q("Goal Setting & SMART","Reviewing your goals regularly allows you to:","adjust them and celebrate progress",["adjust them and celebrate the progress made","avoid ever having to set new ones again","hide your failures from lecturers and friends"],"Review keeps goals alive and realistic.");
+Q("Goal Setting & SMART","Writing goals down is helpful because it:","increases commitment and clarity",["increases commitment and gives you clarity","makes the goals impossible to change later","reduces the amount of effort you need to put in"],"Written goals are clearer and more binding.");
+Q("Goal Setting & SMART","A student sets a goal but has no plan of action. Most likely outcome?","The goal remains a wish",["The goal is achieved automatically","The goal becomes measurable","The lecturer completes it"],"A goal needs actions to be achieved.");
+Q("Goal Setting & SMART","Which obstacle can block goal achievement?","Poor time management",["A written timetable","A supportive study group","Early revision"],"Poor time management derails goals.");
+Q("Goal Setting & SMART","Goals set by yourself are usually more motivating than those imposed because you:","feel ownership of them",["feel ownership of them and commit to them","do not have to work towards achieving them","avoid being given any deadlines at all"],"Ownership raises motivation.");
+
+/* ───────────── PROCRASTINATION ───────────── */
+Q("Procrastination","Procrastination means:","delaying tasks that should be done now",["delaying tasks that ought to be done now","completing tasks well before the deadline","planning tasks carefully before starting them"],"Procrastination is needless postponement.");
+Q("Procrastination","Which is a common cause of procrastination?","Fear of failure or a task that feels overwhelming",["Having a clear schedule with small daily targets","Having only small tasks with a quiet room to use","Having a clear schedule"],"Fear and overwhelm commonly cause delay.");
+Q("Procrastination","Perfectionism can lead to procrastination because the student:","delays starting until conditions seem perfect",["finishes everything well before the deadline","avoids planning and begins work at once","finishes everything early"],"Perfectionists often postpone.");
+Q("Procrastination","Which strategy best reduces procrastination?","Break the task into small steps and start with the first",["Wait until motivation appears before starting anything","Do only the easy tasks and leave the hard ones out","Wait for motivation to appear"],"Starting small reduces resistance.");
+Q("Procrastination","The statement 'I work best under pressure, so I'll start tomorrow' is an example of:","a rationalisation of delay",["a SMART goal","an effective study technique","a Cornell cue"],"It excuses the delay.");
+Q("Procrastination","Which action helps most when a distraction such as social media tempts you?","Remove or block the distraction during study time",["Open it for just a minute every few minutes","Study beside others who are scrolling on theirs","Open it for just a minute every few minutes"],"Removing the cue reduces temptation.");
+Q("Procrastination","A student feels a task is too big and avoids it. The best first step is to:","list the smaller tasks that make it up",["list the smaller tasks that make up the whole","wait until the deadline is much closer to begin","ask a friend to complete the whole task for you"],"Chunking makes tasks manageable.");
+Q("Procrastination","Rewarding yourself after completing a study target:","reinforces the productive behaviour",["reinforces the productive behaviour you showed","encourages you to delay the next task further","reduces your motivation for the following week"],"Rewards reinforce good habits.");
+Q("Procrastination","Which is a likely effect of chronic procrastination?","Stress, rushed work and poor marks",["Stress, rushed work and lower marks overall","Better time management as deadlines get nearer","A deeper understanding of the course material"],"Delay builds stress and lowers quality.");
+Q("Procrastination","The '2-minute rule' suggests that if a task takes under two minutes you should:","do it immediately",["schedule it for next week","delegate it","ignore it"],"Quick tasks are best done at once.");
+Q("Procrastination","In a procrastination self-test, a student answers 'yes' to 8 of 12 statements. What proportion is this?","About 67%",["About 8%","About 33%","About 80%"],"8/12 = 0.667.");
+Q("Procrastination","If answering 'yes' to 5 or more of 12 statements suggests a procrastination tendency, a student with 4 'yes' answers:","falls below the stated threshold",["falls below the stated threshold of five","is above the stated threshold of five","is exactly at the stated threshold of five"],"4 < 5.");
+Q("Procrastination","Which statement is TRUE about procrastination?","It can be overcome with planning and habit changes",["It is a fixed personality trait that never changes","It affects only weak students who do not study","It is a fixed personality trait"],"Habits and planning can reduce it.");
+Q("Procrastination","'I'll start my essay after I tidy my room, check my phone and make tea.' This shows:","avoidance through low-priority tasks",["avoidance through doing low-priority tasks","good prioritising of urgent and important work","time-blocking to protect the study period"],"It is busy-work used to avoid starting.");
+Q("Procrastination","Setting an earlier personal deadline before the official one helps by:","leaving a time buffer for problems",["leaving a time buffer for unexpected problems","removing the official deadline for the task","making the task optional for the whole class"],"A buffer protects against surprises.");
+Q("Procrastination","Studying with a friend who holds you accountable is useful because:","it adds external commitment",["it removes the need to study","it changes the course outline","it shortens the lecture"],"Accountability supports follow-through.");
+
+/* ───────────── STUDY GROUPS ───────────── */
+Q("Study Groups","A study group is:","students meeting to learn and revise together",["a class registration list kept by lecturers","an official panel that assesses student work","an official assessment panel"],"Study groups are peers learning together.");
+Q("Study Groups","An effective study group usually has about:","3 to 5 members",["12 to 15 members","20 or more members","1 member only"],"Small groups work best.");
+Q("Study Groups","A major advantage of study groups is that members can:","explain concepts to one another",["explain concepts to one another aloud","avoid doing any reading on their own","replace the lectures with discussion"],"Peer explanation deepens understanding.");
+Q("Study Groups","Which makes a study group less effective?","Having no agenda and chatting about unrelated things",["Setting a clear agenda before each meeting","Assigning topics to members beforehand","Assigning topics beforehand"],"A lack of focus wastes time.");
+Q("Study Groups","Before each meeting, members should:","prepare the topic and bring questions",["prepare the topic and bring questions along","arrive with no preparation and just listen","plan to copy whatever the others have done"],"Preparation makes meetings productive.");
+Q("Study Groups","A sensible duration for a group study session is about:","one to two hours with a short break",["about twelve hours with no break at all","a few minutes between two lectures","twelve hours without a break"],"Moderate sessions keep concentration.");
+Q("Study Groups","If a group meets for 90 minutes, 3 times a week, over 4 weeks, total meeting time is:","18 hours",["12 hours","6 hours","24 hours"],"1.5 × 3 × 4 = 18.");
+Q("Study Groups","A group of 4 students divides 12 chapters equally to summarise. Chapters per student?","3",["4","2","6"],"12/4 = 3.");
+Q("Study Groups","A group of 5 students divides 20 questions equally. Questions per student?","4",["5","3","10"],"20/5 = 4.");
+Q("Study Groups","Which member behaviour harms a study group?","Dominating the discussion and not letting others speak",["Listening carefully and asking relevant questions","Sharing useful resources with other members","Listening and asking questions"],"Dominating discussion reduces participation.");
+Q("Study Groups","Assigning roles such as timekeeper and note taker helps the group to:","share responsibility and stay organised",["avoid having to study on their own at all","reduce attendance at the planned meetings","reduce attendance"],"Roles distribute tasks.");
+Q("Study Groups","Which is a good way to end a group session?","Summarise what was learned and set the next task",["Leave without saying anything to the others","Start a brand new topic at the very last minute","Start a new topic at the last minute"],"A close-out summary consolidates learning.");
+Q("Study Groups","A group member consistently arrives unprepared. The best response is to:","discuss expectations and agree on ground rules",["ignore the problem for the rest of the semester","stop all further meetings of the whole group","ignore the problem forever"],"Ground rules handle free-riding.");
+Q("Study Groups","Why can a group of 15 students be a poor study group?","Few members get a chance to participate",["It has too much free time between meetings","It is not allowed by the rules of the college","It is forbidden by the college"],"Large groups reduce individual participation.");
+Q("Study Groups","Study groups are NOT a substitute for:","individual study and preparation",["individual study and personal preparation","discussion of difficult topics with peers","sharing and comparing of notes with peers"],"Group study complements, not replaces, personal study.");
+Q("Study Groups","Quizzing each other in a group is an example of:","retrieval practice",["passive rereading","simple dictation","passive reading"],"Mutual quizzing promotes recall.");
+
+/* ───────────── LEARNING STYLES ───────────── */
+Q("Learning Styles","Learning styles refer to:","the ways individuals prefer to take in and process information",["fixed marks that are given to students after tests","the types of university buildings found on a campus","fixed marks given to students"],"Learning styles are preferred ways of learning.");
+Q("Learning Styles","A visual learner prefers to learn through:","diagrams, charts and pictures",["spoken explanations only","movement and touch alone","spoken explanations only"],"Visual learners favour images.");
+Q("Learning Styles","An auditory learner learns best by:","listening and discussing",["looking at graphs and charts","hands-on practice and role play","looking at graphs only"],"Auditory learners favour sound.");
+Q("Learning Styles","A kinaesthetic learner learns best through:","doing, practice and physical activity",["listening to recordings and lectures","reading texts and summaries silently","listening to recordings only"],"Kinaesthetic learners learn by doing.");
+Q("Learning Styles","A student who reads and writes extensively to learn is a:","read/write learner",["visual learner","auditory learner","kinaesthetic learner"],"Read/write learners prefer text.");
+Q("Learning Styles","A student remembers best when she records and replays lectures. Her likely preference is:","auditory",["visual","kinaesthetic","read/write only"],"Replaying audio suits auditory learners.");
+Q("Learning Styles","A student who prefers to build a model to understand a concept is probably:","kinaesthetic",["auditory","visual only","read/write only"],"Building is hands-on.");
+Q("Learning Styles","A student who converts notes into mind maps and colour-coded charts is probably:","visual",["auditory","kinaesthetic","read/write only"],"Colours and maps appeal to visual learners.");
+Q("Learning Styles","Which statement about learning styles is the most reasonable?","Most people use a mix of styles",["Everyone has exactly one fixed style","Styles never change during one's life","Everyone has exactly one style"],"Most learners are multimodal.");
+Q("Learning Styles","Knowing your preferred learning style can help you to:","choose study methods that suit you",["avoid all other methods in every case","stop using a timetable altogether","avoid all other methods"],"Self-knowledge guides method choice.");
+Q("Learning Styles","Why should students also practise methods outside their preferred style?","Courses require different types of learning",["Preferences are not allowed in colleges","Only one style is ever examined at college","Only one style is examined"],"Different tasks demand different approaches.");
+Q("Learning Styles","The acronym VARK stands for:","Visual, Aural, Read/write, Kinaesthetic",["Verbal, Active, Reflective, Kind of learner","Visual, Active, Rapid, Kinetic style learner","Voice, Auditory, Reading, Knowledge"],"VARK lists four modalities.");
+Q("Learning Styles","In VARK, the letter 'A' stands for:","Aural",["Active","Abstract","Analytical"],"A = Aural.");
+Q("Learning Styles","A student who prefers listening to explanations rather than reading is best described as:","aural",["visual","read/write","kinaesthetic"],"Aural means by hearing.");
+Q("Learning Styles","A questionnaire gives scores V=6, A=10, R=4, K=8. Which style is strongest?","Aural",["Visual","Read/write","Kinaesthetic"],"The highest score is 10 for aural.");
+Q("Learning Styles","On the same questionnaire (V=6, A=10, R=4, K=8), the total score is:","28",["24","30","18"],"6+10+4+8 = 28.");
+Q("Learning Styles","With scores V=6, A=10, R=4, K=8, the visual score as a percentage of the total (to the nearest whole number) is:","21%",["6%","30%","24%"],"6/28 = 0.214.");
+Q("Learning Styles","A student scores equal marks on all four VARK styles. She is best described as:","multimodal",["unimodal visual","unimodal aural","untestable"],"Equal preferences indicate multimodal.");
+
+/* ───────────── STUDENT HEALTH & BALANCE ───────────── */
+Q("Student Health & Balance","Which habit best supports a student's overall well-being?","A balanced diet, exercise and enough sleep",["Skipping meals so as to save time for study","Studying through the night several times a week","Studying through the night often"],"Health habits support learning.");
+Q("Student Health & Balance","Skipping breakfast regularly is likely to:","reduce concentration during morning lectures",["improve memory for the afternoon lectures","increase attention during the whole day","increase attention"],"Missing meals affects energy and focus.");
+Q("Student Health & Balance","Which of the following is a healthy way to handle academic stress?","Talk to a friend or counsellor and take breaks",["Ignore it completely and keep working non-stop","Use alcohol so as to relax in the evenings","Ignore it completely"],"Support and breaks reduce stress.");
+Q("Student Health & Balance","Why is regular exercise useful for students?","It reduces stress and improves concentration",["It replaces the need for sleep at night","It is a requirement in every single course","It is a requirement in every course"],"Exercise benefits mind and body.");
+Q("Student Health & Balance","How many hours of sleep do most young adults need per night?","About 7 to 9 hours",["About 2 to 3 hours","About 12 to 14 hours","About 4 hours"],"Seven to nine hours is typical.");
+Q("Student Health & Balance","Which of these is a sign that a student may be overstressed?","Constant fatigue, irritability and poor sleep",["Steady appetite, good sleep and calm moods","Regular exercise and a stable daily routine","Steady appetite and good sleep"],"Stress shows in physical and emotional signs.");
+Q("Student Health & Balance","Which is the most responsible action when you feel ill?","Seek medical care early at the campus clinic",["Wait until it passes after the exams are over","Share medicines with friends who feel the same","Wait until it passes during exams"],"Early treatment prevents complications.");
+Q("Student Health & Balance","Which behaviour increases the risk of HIV infection among students?","Having unprotected sex or multiple partners",["Taking part in sports and group exercises","Eating fruit and vegetables every single day","Taking part in sports"],"Unprotected sex is a major risk factor.");
+Q("Student Health & Balance","Which is a good way to avoid HIV infection?","Abstain or use protection consistently and test regularly",["Share needles and razors only with close friends","Judge a person's status simply by their appearance","Avoid health information"],"Prevention and testing are key.");
+Q("Student Health & Balance","Why is clean drinking water important for student health?","It prevents water-borne diseases such as cholera and typhoid",["It replaces the need to eat regular meals every day","It removes the need for sleep after long study hours","It removes the need for sleep"],"Safe water prevents disease.");
+Q("Student Health & Balance","Which practice most helps reduce malaria risk?","Sleeping under an insecticide-treated net",["Leaving stagnant water around the hostel","Staying outside at dusk without any protection","Going outside at dusk without protection"],"Treated nets prevent mosquito bites.");
+Q("Student Health & Balance","Excessive alcohol and substance use among students typically leads to:","poor academic performance and health risks",["better memory and sharper attention in class","improved exam results and steady health","stronger concentration"],"Substance misuse harms performance and health.");
+Q("Student Health & Balance","A 'balanced' student life includes:","academics, rest, social life and recreation",["only academic work and nothing else at all","only entertainment and time with friends","only entertainment"],"Balance covers several areas of life.");
+Q("Student Health & Balance","Which is a sign that a student should seek counselling?","Persistent sadness or loss of interest lasting weeks",["A single bad mood on one day after a quiz","Missing one lecture because of heavy rain","A single bad mood on one day"],"Persistent low mood needs support.");
+Q("Student Health & Balance","Which meal pattern best supports studying?","Regular meals with fruit, vegetables and proteins",["Only sugary snacks and soft drinks all day","One very large meal late in the evening only","One large meal a day"],"Balanced regular meals sustain energy.");
+Q("Student Health & Balance","Which is NOT a good way of coping with exam stress?","Studying all night with no sleep",["Short walks between study blocks","Talking to peers","A regular timetable"],"Sleep deprivation harms performance.");
+
+/* ───────────── APPLIED SCENARIOS ───────────── */
+Q("Applied Scenarios","Chikondi writes notes in a lecture, then adds cues and a summary the same evening. Which method is she using?","The Cornell system",["Mind mapping","The outline method only","Skimming"],"Cues and summary indicate Cornell.");
+Q("Applied Scenarios","Tadala writes 'I will read 20 pages of my textbook each weekday for two weeks.' This goal is best described as:","specific, measurable and time-bound",["vague, open-ended and without a deadline","not measurable and with no time frame","vague and open-ended"],"It has an amount, a frequency and a duration.");
+Q("Applied Scenarios","Mphatso always begins assignments the night before the deadline and feels rushed. This is:","procrastination",["time-blocking","active studying","note making"],"Delaying until the last minute is procrastination.");
+Q("Applied Scenarios","A first-year student finds that no lecturer follows up on missed homework. This shows that college requires:","self-discipline and self-management",["constant daily supervision from lecturers","fewer assignments and lighter reading loads","constant supervision"],"Students manage their own work.");
+Q("Applied Scenarios","Four students meet weekly with an agenda, rotating topics and a short summary at the end. This is an example of:","an effective study group",["a lecture given by a visiting teacher","an examination board for the course","an examination board"],"Small size, agenda and summary indicate effectiveness.");
+Q("Applied Scenarios","Wezi learns best by drawing diagrams and using colours. Which study approach should she prioritise?","Turning notes into colour-coded diagrams",["Listening to lecture recordings and nothing else","Memorising long lists of terms aloud each day","Listening to lecture recordings only"],"Visual learners benefit from diagrams.");
+Q("Applied Scenarios","Kondwani remembers well when he explains topics aloud to friends. His preference is likely:","aural",["visual only","read/write only","kinaesthetic only"],"Speaking and listening suit aural learners.");
+Q("Applied Scenarios","Madalitso has 20 lecture hours and plans 2.5 study hours per lecture hour. How many study hours per week?","50 hours",["22.5 hours","40 hours","8 hours"],"2.5 × 20 = 50.");
+Q("Applied Scenarios","A student studies 2 hours daily Monday to Friday and 4 hours on Saturday. Weekly study time?","14 hours",["10 hours","12 hours","18 hours"],"2×5 + 4 = 14.");
+Q("Applied Scenarios","Takondwa's weekly timetable: sleep 56 h, lectures 22 h, study 35 h, meals 14 h. Hours remaining out of 168?","41 hours",["47 hours","31 hours","91 hours"],"56+22+35+14 = 127; 168−127 = 41.");
+Q("Applied Scenarios","Limbani's notes cover 6 pages. After making notes, he condenses them to 3 pages. By what percentage did he reduce them?","50%",["30%","25%","60%"],"(6−3)/6 = 0.5.");
+Q("Applied Scenarios","Which goal needs to be rewritten to be SMART? 'I want to study more.'","It needs a specific amount, a measure and a deadline",["It is already SMART and needs no changes","It only needs a title and a better heading","It needs more adjectives"],"It lacks specificity, measurability and a time frame.");
+Q("Applied Scenarios","A student sets the goal 'Score 100% in every test this year without studying on weekends.' Which SMART element is MOST doubtful?","Attainable",["Specific","Measurable","Time-bound"],"The target is extremely demanding given the conditions.");
+Q("Applied Scenarios","Nyasa notices she checks social media every few minutes while revising. Best fix?","Put the phone away or turn off notifications during study blocks",["Study with the phone on her lap and the sound on high","Study for ten hours without any breaks at all","Study for ten hours without breaks"],"Cut distractions during study.");
+Q("Applied Scenarios","A student scores V=5, A=5, R=9, K=5 on a learning-style questionnaire. The strongest preference is:","read/write",["visual","aural","kinaesthetic"],"The highest is R=9.");
+Q("Applied Scenarios","On a Cornell page 24 cm wide, the cue column takes 30% of the width. Width of the notes column?","16.8 cm",["7.2 cm","14.4 cm","9.6 cm"],"Cue = 7.2 cm; notes = 24 − 7.2 = 16.8.");
+Q("Applied Scenarios","A group of 5 students has 3 hours for a session with each student speaking equally. Minutes per student?","36",["30","45","60"],"180/5 = 36.");
+Q("Applied Scenarios","A student studies in 50-minute blocks with 10-minute breaks and wants 3 blocks. Total time needed if there is a break after each block?","180 minutes",["150 minutes","160 minutes","170 minutes"],"3 × (50+10) = 180.");
+Q("Applied Scenarios","Which is the best first step for a student overwhelmed by many tasks?","List tasks and rank them by importance and urgency",["Start with the easiest one and then stop for the day","Wait until a deadline arrives before choosing any","Start with the easiest one and then stop for the day"],"Prioritising brings order.");
+Q("Applied Scenarios","Before a lecture on 'Study Skills', you read the topic outline. This habit is:","preparation that makes note taking easier",["procrastination that wastes time before the lecture","plagiarism that breaks the college rules","procrastination"],"Pre-reading supports lecture comprehension.");
+
+/* ───────────── APP LOGIC ───────────── */
+const TOPICS = [...new Set(QUESTIONS.map(q => q.s))];
+const AVATARS = ['#3498db','#2980b9','#2ecc71','#e74c3c','#9b59b6','#1abc9c','#e67e22','#34495e'];
+
+function load(k, d){ try { return JSON.parse(localStorage.getItem(k) || d); } catch(e){ return JSON.parse(d); } }
+function save(k, v){ try { localStorage.setItem(k, JSON.stringify(v)); } catch(e){} }
+
+let activeTopics = new Set(TOPICS);
+let quiz = [];
+let cur = 0, score = 0, answered = false;
+let currentUser = {name:'', reg:''};
+let leaderboard = load('ldc31101_lb', '[]');
+let comments = load('ldc31101_comments', '{}');
+
+function shuffle(a){
+  a = a.slice();
+  for(let i = a.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('screen-'+id).classList.add('active');
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  if(id==='leaderboard'){ renderLB(); document.querySelectorAll('.nav-btn')[1].classList.add('active'); }
+  else document.querySelectorAll('.nav-btn')[0].classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function buildTopicGrid(){
+  const g = document.getElementById('topic-grid');
+  g.innerHTML='';
+  TOPICS.forEach(t => {
+    const b = document.createElement('button');
+    b.className = 'topic-toggle on';
+    b.textContent = t;
+    b.onclick = function(){
+      if(activeTopics.has(t)){
+        if(activeTopics.size === 1) return;
+        activeTopics.delete(t); b.className='topic-toggle';
+      } else {
+        activeTopics.add(t); b.className='topic-toggle on';
+      }
+    };
+    g.appendChild(b);
+  });
+}
+
+function startQuiz(){
+  const name = document.getElementById('inp-name').value.trim();
+  const reg = document.getElementById('inp-reg').value.trim();
+  if(!name){ alert('Please enter your name to begin.'); return; }
+  currentUser = { name, reg };
+  let pool = shuffle(QUESTIONS.filter(q => activeTopics.has(q.s)));
+  const cnt = document.getElementById('inp-count').value;
+  if(cnt !== 'all') pool = pool.slice(0, parseInt(cnt, 10));
+  quiz = pool;
+  if(quiz.length === 0){ alert('Select at least one topic.'); return; }
+  cur = 0; score = 0; answered = false;
+  showScreen('quiz');
+  renderQ();
+}
+
+function renderQ(){
+  if(cur >= quiz.length){ endQuiz(); return; }
+  const q = quiz[cur];
+  document.getElementById('prog-fill').style.width = ((cur / quiz.length) * 100) + '%';
+  document.getElementById('prog-label').textContent = `Question ${cur+1} of ${quiz.length}`;
+  document.getElementById('prog-score').textContent = `${score} pts`;
+  document.getElementById('q-section').innerHTML = q.s;
+  document.getElementById('q-text').innerHTML = q.q;
+
+  const opts = document.getElementById('options');
+  opts.innerHTML = '';
+  const shuffled = shuffle(q.opts.map((opt, i) => ({opt, isCorrect: i === 0})));
+  const correctIdx = shuffled.findIndex(o => o.isCorrect);
+  const letters = ['A','B','C','D'];
+  shuffled.forEach((o, i) => {
+    const b = document.createElement('button');
+    b.className = 'opt-btn';
+    b.innerHTML = `<span class="opt-letter">${letters[i]}</span><span>${o.opt}</span>`;
+    b.onclick = function(){ if(!answered) select(i, correctIdx, b, q.exp); };
+    opts.appendChild(b);
+  });
+
+  document.getElementById('feedback').style.display = 'none';
+  document.getElementById('discussion-section').style.display = 'none';
+  document.getElementById('next-btn').style.display = 'none';
+  document.getElementById('next-btn').textContent = (cur === quiz.length - 1) ? 'Finish →' : 'Next Question →';
+  answered = false;
+  window.scrollTo(0,0);
+}
+
+function select(selectedIdx, correctIdx, btn, exp){
+  answered = true;
+  document.querySelectorAll('.opt-btn').forEach(b => b.disabled = true);
+  const fb = document.getElementById('feedback');
+  if(selectedIdx === correctIdx){
+    btn.classList.add('correct');
+    score++;
+    fb.className = 'feedback-box correct';
+    fb.innerHTML = `<strong>✓ Correct!</strong>${exp}`;
+  } else {
+    btn.classList.add('wrong');
+    document.querySelectorAll('.opt-btn')[correctIdx].classList.add('correct');
+    fb.className = 'feedback-box wrong';
+    fb.innerHTML = `<strong>✗ Not quite.</strong>${exp}`;
+  }
+  fb.style.display = 'block';
+  document.getElementById('next-btn').style.display = 'inline-flex';
+  document.getElementById('prog-score').textContent = `${score} pts`;
+  showDiscussion(cur);
+}
+
+function nextQ(){ cur++; renderQ(); }
+
+function qKey(idx){
+  const t = quiz[idx].q.replace(/<[^>]*>/g,'').replace(/[^a-zA-Z0-9]/g,'').slice(0, 40);
+  return 'che_' + t;
+}
+function showDiscussion(idx){
+  const key = qKey(idx);
+  document.getElementById('discussion-section').style.display = 'block';
+  renderComments(key);
+  document.getElementById('comment-input').dataset.key = key;
+}
+function renderComments(key){
+  const list = document.getElementById('comments-list');
+  const c = comments[key] || [];
+  if(c.length === 0){
+    list.innerHTML = '<div class="no-comments">No notes yet — add your own observation.</div>';
+    return;
+  }
+  list.innerHTML = c.map(cm => `
+    <div class="comment">
+      <div class="comment-author">${escHtml(cm.name)} ${cm.reg ? '<span style="color:var(--muted);font-weight:400">· '+escHtml(cm.reg)+'</span>' : ''}</div>
+      <div class="comment-text">${escHtml(cm.text)}</div>
+      <div class="comment-time">${cm.time}</div>
+    </div>`).join('');
+  list.scrollTop = list.scrollHeight;
+}
+function postComment(){
+  const inp = document.getElementById('comment-input');
+  const key = inp.dataset.key;
+  const text = inp.value.trim();
+  if(!text || !key) return;
+  if(!comments[key]) comments[key] = [];
+  const now = new Date();
+  comments[key].push({
+    name: currentUser.name, reg: currentUser.reg, text,
+    time: now.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}) + ' · ' + now.toLocaleDateString()
+  });
+  save('ldc31101_comments', comments);
+  inp.value = '';
+  renderComments(key);
+}
+
+function endQuiz(){
+  const total = quiz.length;
+  const pct = Math.round((score / total) * 100);
+  document.getElementById('result-ring').style.setProperty('--pct', pct + '%');
+  document.getElementById('result-pct').textContent = pct + '%';
+  document.getElementById('bd-correct').textContent = score;
+  document.getElementById('bd-wrong').textContent = total - score;
+  document.getElementById('bd-total').textContent = total;
+
+  let title, sub;
+  if(pct >= 90){ title='Study Skills Master!'; sub='Excellent grasp of study skills, note taking, goal setting and time management.'; }
+  else if(pct >= 75){ title='Well done!'; sub='Strong performance. Revise the timetable calculations and the SMART and Cornell details to reach 100%.'; }
+  else if(pct >= 60){ title='Good effort.'; sub='Solid base. Revisit note-taking methods, SMART goals and the timetable calculations.'; }
+  else { title='Back to the slides.'; sub='Re-read the lecture slides, redo the worked examples, then try again.'; }
+  document.getElementById('result-title').textContent = title;
+  document.getElementById('result-sub').textContent = sub;
+
+  leaderboard.push({
+    name: currentUser.name, reg: currentUser.reg, score, total, pct,
+    time: new Date().toLocaleDateString(),
+    color: AVATARS[Math.abs(hashStr(currentUser.name)) % AVATARS.length]
+  });
+  leaderboard.sort((a,b) => b.pct - a.pct || b.score - a.score);
+  save('ldc31101_lb', leaderboard);
+  document.getElementById('stat-players').textContent = leaderboard.length;
+  showScreen('result');
+}
+
+function restartQuiz(){ showScreen('home'); }
+
+function renderLB(){
+  const rows = document.getElementById('lb-rows');
+  document.getElementById('lb-count').textContent = `${leaderboard.length} attempt${leaderboard.length!==1?'s':''}`;
+  if(leaderboard.length === 0){
+    rows.innerHTML = '<div class="lb-empty">No results yet. Be the first to take the quiz!</div>';
+    return;
+  }
+  const rankClass = ['gold','silver','bronze'];
+  const rankLabel = ['1st','2nd','3rd'];
+  rows.innerHTML = leaderboard.slice(0,20).map((e,i) => {
+    const initials = e.name.split(' ').filter(Boolean).map(n => n[0]).join('').toUpperCase().slice(0,2);
+    const isYou = currentUser.name && e.name === currentUser.name;
+    return `<div class="lb-row">
+      <div class="lb-rank ${rankClass[i]||''}">${i<3?rankLabel[i]:i+1}</div>
+      <div class="lb-avatar" style="background:${e.color}22;color:${e.color}">${escHtml(initials)}</div>
+      <div class="lb-info">
+        <div class="lb-name">${escHtml(e.name)} ${isYou?'<span class="badge-you">you</span>':''}</div>
+        <div class="lb-meta">${e.reg ? escHtml(e.reg)+' · ' : ''}${e.time}</div>
+      </div>
+      <div class="lb-score-wrap">
+        <div class="lb-score">${e.score}/${e.total}</div>
+        <div class="lb-pct">${e.pct}%</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function hashStr(s){ let h=0; for(let c of s){ h=((h<<5)-h)+c.charCodeAt(0); h|=0; } return h; }
+function escHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+buildTopicGrid();
+document.getElementById('stat-q').textContent = QUESTIONS.length;
+document.getElementById('stat-t').textContent = TOPICS.length;
+document.getElementById('stat-players').textContent = leaderboard.length;
+</script>
+</body>
+</html>
